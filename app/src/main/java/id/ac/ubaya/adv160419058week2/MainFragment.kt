@@ -38,6 +38,7 @@ class MainFragment : Fragment() {
         else{
             score = 0
         }
+        txtShowScore.text = score.toString()
         btnSubmit.setOnClickListener{
             val playerAnswer = txtAnswer.text.toString().toInt()
 

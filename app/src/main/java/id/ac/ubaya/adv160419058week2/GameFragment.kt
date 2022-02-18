@@ -28,7 +28,7 @@ class GameFragment : Fragment() {
             txtScore.text = "Your Score is $score"
         }
         btnBack.setOnClickListener{
-            val action = GameFragmentDirections.actionMainFragment()
+            val action = GameFragmentDirections.actionMainFragment(status)
             Navigation.findNavController(it).navigate(action)
         }
     }
