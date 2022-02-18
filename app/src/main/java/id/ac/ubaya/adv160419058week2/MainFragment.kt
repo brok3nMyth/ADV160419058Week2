@@ -7,10 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlin.random.Random
 
 
 class MainFragment : Fragment() {
 
+    val num1 = Random.nextInt(0,99)
+    val num2 = Random.nextInt(0,99)
+
+    val systemAnswer = num1 + num2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -18,14 +23,35 @@ class MainFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnStart.setOnClickListener{
-            val playerName = txtName.text.toString()
-            val action = MainFragmentDirections.actionGameFragment(playerName)
-            Navigation.findNavController(it).navigate(action)
+
+        txtQuestion.text = "$num1  +  $num2"
+        var status = MainFragmentArgs.fromBundle(requireArguments()).status
+        var score = 0
+        if (status == 1){
+            score = MainFragmentArgs.fromBundle(requireArguments()).score
+        }
+        else{
+            score = 0
+        }
+        btnSubmit.setOnClickListener{
+            val playerAnswer = txtAnswer.text.toString().toInt()
+
+            if (playerAnswer == systemAnswer){
+                score +=1
+                status = 1
+                val action = MainFragmentDirections.actionNextStage(score,status)
+                Navigation.findNavController(it).navigate(action)
+            }
+            else{
+                val action = MainFragmentDirections.actionGameFragment(score)
+                Navigation.findNavController(it).navigate(action)
+            }
+
         }
     }
 

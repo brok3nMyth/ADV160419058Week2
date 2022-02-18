@@ -22,9 +22,10 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val status = 0
         if(arguments != null) { //alternate form in ppt week 2 pg. 44
-            val playerName = GameFragmentArgs.fromBundle(requireArguments()).playerName
-            txtTurn.text = "$playerName 's Turn"
+            val score = GameFragmentArgs.fromBundle(requireArguments()).score
+            txtScore.text = "Your Score is $score"
         }
         btnBack.setOnClickListener{
             val action = GameFragmentDirections.actionMainFragment()
